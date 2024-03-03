@@ -1,9 +1,9 @@
 module.exports.config = {
-    name: 'teach',
+    name: 'تعليم',
     version: '1.0.0',
     role: 0,
-    description: "Teach the bot to respond like a person",
-    usage: "teach [question] | [answer]",
+    description: "قم بتعليم الروبوت أن يستجيب مثل الشخص",
+    usage: "تعليم [question] | [answer]",
     credits: 'Developer',
     cooldown: 3,
 };
@@ -16,11 +16,11 @@ module.exports.run = async function({ api, event, args }) {
 
     if (input.length < 2) {
         if(args.length == 0){
-            return api.sendMessage("Usage: teach [question] | [answer]", threadID, messageID);
+            return api.sendMessage("الاستخدام: تعليم [سؤال] | [إجابة]", threadID, messageID);
         } else if(args.join(" ").includes("|")) {
-            return api.sendMessage("Please provide both a question and an answer.", threadID, messageID);
+            return api.sendMessage("يرجى تقديم سؤال وإجابة.", threadID, messageID);
         } else {
-            return api.sendMessage("Please use '|' character to separate the question and answer.", threadID, messageID);
+            return api.sendMessage("الرجاء استخدام '|' حرف للفصل بين السؤال والجواب.", threadID, messageID);
         }
     }
     const question = encodeURIComponent(input[0].trim());
@@ -32,9 +32,9 @@ module.exports.run = async function({ api, event, args }) {
         if (responseData.error) {
             api.sendMessage(`Error: ${responseData.error}`, threadID, messageID);
         } else {
-            api.sendMessage(`Successfully taught. Question: ${input[0].trim()} | Answer: ${input[1].trim()}`, threadID, messageID);
+            api.sendMessage(`تم ${input[0].trim()} | إجابة: ${input[1].trim()}`, threadID, messageID);
         }
     } catch (error) {
-        api.sendMessage("An error occurred while fetching the data.", threadID, messageID);
+        api.sendMessage("حدث خطأ أثناء جلب البيانات.", threadID, messageID);
     }
 };
