@@ -2,11 +2,11 @@ const axios = require('axios');
 const fs = require('fs');
 
 module.exports.config = {
-    name: "emojimix",
+    name: "دمج",
     version: "1.0.0",
     role: 0,
     hasPrefix: true,
-    description: "Mix two emojis.",
+    description: "دمج اموجيهات.",
     usage: "emojimix [emoji1] [emoji2]",
     credits: "Developer",
     cooldown: 0
@@ -28,7 +28,7 @@ module.exports.run = async ({ api, event, args }) => {
   const pathPic = __dirname + '/cache/' + `${timestamp}_emojimix.png`;
 
   if (args.length < 2) {
-    api.sendMessage("Please provide two emojis to mix.", threadID, messageID);
+    api.sendMessage("يرجى تقديم اثنين من الرموز التعبيرية للمزج.", threadID, messageID);
     return;
   };
     
@@ -51,6 +51,6 @@ module.exports.run = async ({ api, event, args }) => {
     api.sendMessage({ body: '', attachment: fs.createReadStream(pathPic) }, threadID, () => fs.unlinkSync(pathPic), messageID);
 
     } catch(error) {
-      api.sendMessage("Can't combibe emojis.", threadID, messageID);
+      api.sendMessage("لا يمكن الجمع بين الرموز التعبيرية.", threadID, messageID);
     }
 };
