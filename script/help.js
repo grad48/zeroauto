@@ -1,5 +1,5 @@
 module.exports.config = {
-  name: 'help',
+  name: 'اوامر',
   version: '1.0.0',
   role: 0,
   hasPrefix: true,
@@ -25,22 +25,22 @@ module.exports.run = async function({
       let page = 1;
       let start = (page - 1) * pages;
       let end = start + pages;
-      let helpMessage = `Command List:\n\n`;
+      let helpMessage = `قائمه اوامر:\n\n`;
       for (let i = start; i < Math.min(end, commands.length); i++) {
         helpMessage += `\t${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
       }
-      helpMessage += '\nEvent List:\n\n';
+      helpMessage += '\nقائمة الأحداث:\n\n';
       eventCommands.forEach((eventCommand, index) => {
         helpMessage += `\t${index + 1}. 「 ${prefix}${eventCommand} 」\n`;
       });
-      helpMessage += `\nPage ${page}/${Math.ceil(commands.length / pages)}. To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.`;
+      helpMessage += `\nصفحه ${page}/${Math.ceil(commands.length / pages)}. To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.`;
       api.sendMessage(helpMessage, event.threadID, event.messageID);
     } else if (!isNaN(input)) {
       const page = parseInt(input);
       const pages = 20;
       let start = (page - 1) * pages;
       let end = start + pages;
-      let helpMessage = `Command List:\n\n`;
+      let helpMessage = `قائمه اوامر:\n\n`;
       for (let i = start; i < Math.min(end, commands.length); i++) {
         helpMessage += `\t${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
       }
@@ -64,17 +64,17 @@ module.exports.run = async function({
           cooldown,
           hasPrefix
         } = command;
-        const roleMessage = role !== undefined ? (role === 0 ? '➛ Permission: user' : (role === 1 ? '➛ Permission: admin' : (role === 2 ? '➛ Permission: thread Admin' : (role === 3 ? '➛ Permission: super Admin' : '')))) : '';
-        const aliasesMessage = aliases.length ? `➛ Aliases: ${aliases.join(', ')}\n` : '';
-        const descriptionMessage = description ? `Description: ${description}\n` : '';
-        const usageMessage = usage ? `➛ Usage: ${usage}\n` : '';
-        const creditsMessage = credits ? `➛ Credits: ${credits}\n` : '';
-        const versionMessage = version ? `➛ Version: ${version}\n` : '';
-        const cooldownMessage = cooldown ? `➛ Cooldown: ${cooldown} second(s)\n` : '';
-        const message = ` 「 Command 」\n\n➛ Name: ${name}\n${versionMessage}${roleMessage}\n${aliasesMessage}${descriptionMessage}${usageMessage}${creditsMessage}${cooldownMessage}`;
+        const roleMessage = role !== undefined ? (role === 0 ? '➛ إذن: المستخدم' : (role === 1 ? '➛ Permission: admin' : (role === 2 ? '➛ Permission: thread Admin' : (role === 3 ? '➛ Permission: super Admin' : '')))) : '';
+        const aliasesMessage = aliases.length ? `➛ اسماء مستعارة: ${aliases.join(', ')}\n` : '';
+        const descriptionMessage = description ? `وصف: ${description}\n` : '';
+        const usageMessage = usage ? `➛ الاستخدام: ${usage}\n` : '';
+        const creditsMessage = credits ? `➛ الاعتمادات: ${credits}\n` : '';
+        const versionMessage = version ? `➛ اصدار: ${version}\n` : '';
+        const cooldownMessage = cooldown ? `➛ ترطيب: ${cooldown} second(s)\n` : '';
+        const message = ` 「 الاوامر 」\n\n➛ الاسم: ${name}\n${versionMessage}${roleMessage}\n${aliasesMessage}${descriptionMessage}${usageMessage}${creditsMessage}${cooldownMessage}`;
         api.sendMessage(message, event.threadID, event.messageID);
       } else {
-        api.sendMessage('Command not found.', event.threadID, event.messageID);
+        api.sendMessage('القيادة لم يتم العثور.', event.threadID, event.messageID);
       }
     }
   } catch (error) {
@@ -91,8 +91,8 @@ module.exports.handleEvent = async function({
     messageID,
     body
   } = event;
-  const message = prefix ? 'This is my prefix: ' + prefix : "Sorry i don't have prefix";
-  if (body?.toLowerCase().startsWith('prefix')) {
+  const message = prefix ? 'هذه هي البادئة الخاصة بي : ' + prefix : "آسف ليس لدي البادئة";
+  if (body?.toLowerCase().startsWith('الرمز')) {
     api.sendMessage(message, threadID, messageID);
   }
 }
