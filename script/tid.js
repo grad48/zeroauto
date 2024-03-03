@@ -2,11 +2,11 @@ const request = require('request');
 const fs = require('fs');
 const path = require('path');
 module.exports.config = {
-  name: "tid",
+  name: "معرف",
   version: "1.0.0",
   role: 0,
   hasPrefix: true,
-  description: "Get thread ID and group image",
+  description: "الحصول على معرف الموضوع وصورة المجموعة",
   usages: "tid",
   credits: "Developer",
   cooldowns: 0
@@ -28,7 +28,7 @@ module.exports.run = async function({
     if (imageSrc) {
       const callback = async function() {
         api.sendMessage({
-            body: `Thread ID: ${event.threadID}\n\nGroup Thread Image:`,
+            body: `Thread ID: ${event.threadID}\n\nصورة موضوع المجموعة:`,
             attachment: fs.createReadStream(imagePath)
           }, event.threadID,
           () => {
@@ -37,7 +37,7 @@ module.exports.run = async function({
       };
       request(imageSrc).pipe(fs.createWriteStream(imagePath)).on('close', callback);
     } else {
-      api.sendMessage(`Thread ID: ${event.threadID}\n\nThis thread does not have an image.`, event.threadID);
+      api.sendMessage(`معرف الموضوع: ${event.threadID}\n\nهذا الموضوع ليس لديه صورة.`, event.threadID);
     }
   } catch (error) {
     api.sendMessage(error.message, event.threadID, event.messageID);
