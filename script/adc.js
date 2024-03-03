@@ -1,13 +1,12 @@
 module.exports.config = {
-  name: "اضف",
+  name: "adc",
   version: "1.0.0",
-  hasPermssion: 2,
-  credits: "Dridi",
-  description: "اضافة اوامر للبوت",
+  role: 3,
   hasPrefix: true,
-  commandCategory: "〘 المطور 〙",
-  usages: "admin",
-  cooldowns: 0,
+  usage: '[reply or text]',
+  description: 'Apply code from buildtooldev and pastebin',
+  credits: 'Deveploper',
+  cooldown: 5
   dependencies: {
       "pastebin-api": "",
       "cheerio": "",
