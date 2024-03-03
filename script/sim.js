@@ -1,9 +1,9 @@
 module.exports.config = {
-    name: 'sim',
+    name: 'سيم',
     version: '1.0.0',
     role: 0,
-    description: "Engage in conversation with an AI bot",
-    usage: "sim [prompt]",
+    description: "انخرط في محادثة مع روبوت يعمل بالذكاء الاصطناعي",
+    usage: "سيم [prompt]",
     credits: 'Developer',
     cooldown: 3,
 };
@@ -13,7 +13,7 @@ module.exports.run = async function({ api, event, args }) {
     const input = args.join(" ");
 
     if (!input) {
-        api.sendMessage("Please provide a text prompt. Usage: sim [text]", event.threadID, event.messageID);
+        api.sendMessage("يرجى تقديم رسالة نصية. الاستخدام: سيم [نص]", event.threadID, event.messageID);
         return;
     }
     try {  
@@ -21,11 +21,11 @@ module.exports.run = async function({ api, event, args }) {
         const response = await axios.get(`https://simsimi.fun/api/v2/?mode=talk&lang=ph&message=${content}&filter=false`);
         const responseData = response.data;
         if (responseData.error) {
-            api.sendMessage("An error occurred. Please try again later.", event.threadID, event.messageID);
+            api.sendMessage("حدث خطأ. الرجاء معاودة المحاولة في وقت لاحق.", event.threadID, event.messageID);
         } else {
             api.sendMessage(responseData.success, event.threadID, event.messageID);
         }
     } catch (error) {
-        api.sendMessage("An error occurred while fetching the data.", event.threadID, event.messageID);
+        api.sendMessage("حدث خطأ أثناء جلب البيانات.", event.threadID, event.messageID);
     }
 };
