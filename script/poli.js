@@ -1,10 +1,10 @@
 module.exports.config = {
-  name: "poli",
+  name: "بولي",
   version: "1.0.0",
   role: 0,
   hasPrefix: true,
   credits: "Developer",
-  description: "generate image from polination.",
+  description: "توليد الصورة من التلقيح.",
   usages: "poli [promt]",
   cooldowns: 5,
   
@@ -19,7 +19,7 @@ module.exports.run = async ({ api, event, args }) => {
   const time = new Date();
   const timestamp = time.toISOString().replace(/[:.]/g, "-");
   const path = __dirname + '/cache/' + `${timestamp}_tid.png`;
-  if (!query) return api.sendMessage("Please provide your promt.", threadID, messageID);
+  if (!query) return api.sendMessage("يرجى تقديم موجه الخاص بك.", threadID, messageID);
     api.sendMessage(`Searching for ${query}`, event.threadID, event.messageID);
   const poli = (await axios.get(`https://image.pollinations.ai/prompt/${query}`, {
     responseType: "arraybuffer",
