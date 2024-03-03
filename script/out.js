@@ -1,11 +1,11 @@
 module.exports.config = {
-  name: "out",
+  name: "غادر",
   version: "1.0.0",
   role: 2,
   hasPrefix: true,
   credits: "Developer",
-  description: "Bot leaves the thread",
-  usages: "out",
+  description: "بوت سيغادر",
+  usages: "اخرج",
   cooldowns: 10,
 
 };
