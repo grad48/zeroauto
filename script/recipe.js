@@ -1,10 +1,10 @@
 const axios = require('axios');
 module.exports.config = {
-  name: "recipe",
+  name: "وصفة",
   version: "1.0.0",
   role: 0,
   hasPrefix: true,
-  description: "Get a random recipe.",
+  description: "احصل على وصفة عشوائية.",
   usage: "recipe",
   credits: "Developer",
   cooldown: 0
@@ -37,6 +37,6 @@ module.exports.run = async ({
         `;
     api.sendMessage(recipeMessage, threadID, messageID);
   } catch (error) {
-    api.sendMessage("Sorry, I couldn't fetch a recipe at the moment. Please try again later.", threadID);
+    api.sendMessage("عذرًا، لم أتمكن من جلب عرض أسعار في الوقت الحالي. الرجاء معاودة المحاولة في وقت لاحق later.", threadID);
   }
 };
