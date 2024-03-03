@@ -1,10 +1,10 @@
 module.exports.config = {
-  name: "trans",
+  name: "ترجمه",
   version: "1.0.0",
   role: 0,
   hasPrefix: true,
-  description: "Text translation",
-  usages: "trans [tl, en] [promt]",
+  description: "ترجمة النصوص",
+  usages: "ترجمه [tl, en] [promt]",
   credits: "Developer",
   cooldowns: 5,
 };
@@ -18,7 +18,7 @@ module.exports.run = async ({
   const targetLanguage = args[0];
   const content = args.slice(1).join(" ");
   try {
-    if (content.length === 0 && event.type !== "message_reply") return api.sendMessage(`Please provide a text to translate or reply to a message.\n\nExample: ${prefix}trans tl what is life`, event.threadID, event.messageID);
+    if (content.length === 0 && event.type !== "message_reply") return api.sendMessage(`يرجى تقديم نص لترجمته أو الرد على الرسالة.\n\nكمثال: ${prefix}ترجم tl what is life`, event.threadID, event.messageID);
     let translateThis, lang;
     if (event.type === "message_reply") {
       translateThis = event.messageReply.body;
