@@ -1,10 +1,10 @@
 module.exports.config = {
-  name: "adc",
+  name: "أضف",
   version: "1.0.0",
   role: 3,
   hasPrefix: true,
   usage: '[reply or text]',
-  description: 'Apply code from buildtooldev and pastebin',
+  description: 'تطبيق التعليمات البرمجية من buildtooldev وpastebin',
   credits: 'Deveploper',
   cooldown: 5
 };
@@ -28,7 +28,7 @@ module.exports.run = async function({
   if (type == "message_reply") {
     var text = messageReply.body;
   }
-  if (!text && !name) return api.sendMessage('Please reply to the link you want to apply the code to or write the file name to upload the code to pastebin!', threadID, messageID);
+  if (!text && !name) return api.sendMessage('يرجى الرد على الرابط الذي تريد تطبيق الكود عليه أو كتابة اسم الملف لتحميل الكود إلى Pastebin!', threadID, messageID);
   if (!text && name) {
     var data = fs.readFile(`${__dirname}/${args[0]}.js`, "utf-8", async (err, data) => {
       if (err) return api.sendMessage(`Command ${args[0]} does not exist!`, threadID, messageID);
