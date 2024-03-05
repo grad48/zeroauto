@@ -5,7 +5,7 @@ module.exports.config = {
     credits: "عمر",
     description: "لعبة احزر العلم",
     usages: ["لعبة"],
-    commandCategory: "🄶🄰🄼🄴",
+    credits: "🄶🄰🄼🄴",
     hasPrefix: true,
     cooldowns: 0
 };
