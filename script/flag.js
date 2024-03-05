@@ -4,7 +4,7 @@ module.exports.config = {
     hasPermssion: 0,
     credits: "عمر",
     description: "لعبة احزر العلم",
-    usages: ["لعبة"],
+    aliases: ["لعبة"],
     credits: "🄶🄰🄼🄴",
     hasPrefix: true,
     cooldowns: 0
