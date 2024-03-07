@@ -1,60 +1,86 @@
-const path = require('path');
-module.exports.config = {
-  name: "اغاني",
-  version: "1.0.0",
-  role: 0,
-  hasPrefix: true,
-  aliases: ['play'],
-  usage: 'Music [promt]',
-  description: 'بحث عن اغاني من يوتيوب',
-  credits: 'Deveploper',
-  cooldown: 5
-};
-module.exports.run = async function({
-  api,
-  event,
-  args
-}) {
-  const fs = require("fs-extra");
-  const ytdl = require("ytdl-core");
-  const yts = require("yt-search");
-  const musicName = args.join(' ');
-  if (!musicName) {
-    api.sendMessage(`للبدء، اكتب الموسيقى وعنوان الأغنية التي تريدها.`, event.threadID, event.messageID);
-    return;
-  }
-  try {
-    api.sendMessage(`البحث عن "${musicName}"...`, event.threadID, event.messageID);
-    const searchResults = await yts(musicName);
-    if (!searchResults.videos.length) {
-      return api.sendMessage("لا يمكن العثور على البحث.", event.threadID, event.messageID);
-    } else {
-      const music = searchResults.videos[0];
-      const musicUrl = music.url;
-      const stream = ytdl(musicUrl, {
-        filter: "audioonly"
-      });
-      const time = new Date();
-      const timestamp = time.toISOString().replace(/[:.]/g, "-");
-      const filePath = path.join(__dirname, 'cache', `${timestamp}_music.mp3`);
-      stream.pipe(fs.createWriteStream(filePath));
-      stream.on('response', () => {});
-      stream.on('info', (info) => {});
-      stream.on('end', () => {
-        if (fs.statSync(filePath).size > 26214400) {
-          fs.unlinkSync(filePath);
-          return api.sendMessage('تعذر إرسال الملف لأن حجمه أكبر من 25 ميغابايت.', event.threadID);
-        }
-        const message = {
-          body: `${music.title}`,
-          attachment: fs.createReadStream(filePath)
-        };
-        api.sendMessage(message, event.threadID, () => {
-          fs.unlinkSync(filePath);
-        }, event.messageID);
-      });
+const axios = require("axios");
+const fs = require('fs');
+
+function formatSize(bytes) {
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  if (bytes === 0) return '0 Byte';
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+  return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
+
+module.exports = {
+  config: {
+    name: "اغاني",
+    version: "1.0",
+    author: "Rishad",
+    countDown: 10,
+    role: 0,
+    shortDescription: "تنزيل من سبوتي فاي",
+    longDescription: "Download Spotify musics by searching",
+    category: "music",
+    guide: "{pn} goosebumps"
+  },
+
+  run: async function ({ api, event, args }) {
+    const query = args.join(" ");
+
+    if (!query) {
+      return api.sendMessage("Baka 🗿 provide a track name.", event.threadID);
     }
-  } catch (error) {
-    api.sendMessage('حدث خطأ أثناء معالجة طلبك.', event.threadID, event.messageID);
+
+    const SearchapiUrl = `https://for-devs.onrender.com/api/spsearch?apikey=fuck&query=${encodeURIComponent(query)}`;
+
+    try {
+      const response = await axios.get(SearchapiUrl);
+      const tracks = response.data.slice(0, 6);
+
+      if (tracks.length === 0) {
+        return api.sendMessage("❎ No tracks found for the given query.", event.threadID);
+      }
+
+      const selectedTrack = tracks[0]; 
+      const downloadingMessage = await api.sendMessage(`✅ Downloading track "${selectedTrack.title}"`, event.threadID);
+
+      const SpdlApiUrl = 'https://for-devs.onrender.com/api/spotifydl?apikey=fuck&url=' + encodeURIComponent(selectedTrack.url);
+
+      try {
+        const apiResponse = await axios.get(SpdlApiUrl);
+
+        if (apiResponse.data.id) {
+          const {
+            artists,
+            title,
+            album,
+            releaseDate,
+            downloadUrl
+          } = apiResponse.data;
+
+          const audioResponse = await axios.get(downloadUrl, { responseType: 'arraybuffer' });
+          fs.writeFileSync(__dirname + '/cache/spotifyAudio.mp3', Buffer.from(audioResponse.data));
+
+          const fileSize = fs.statSync(__dirname + '/cache/spotifyAudio.mp3').size;
+          const sizeFormatted = formatSize(fileSize);
+
+          const attachment = fs.createReadStream(__dirname + '/cache/spotifyAudio.mp3');
+
+          const form = {
+            body: `🎶 Now playing:\n\n👤 Artists: ${artists}\n🎵 Title: ${title}\n📀 Album: ${album}\n📅 Release Date: ${releaseDate}\n📦 Size: ${sizeFormatted}`,
+            attachment: attachment
+          };
+
+          api.sendMessage(form, event.threadID);
+        } else {
+          api.sendMessage("Sorry, the Spotify content could not be downloaded.", event.threadID);
+        }
+      } catch (error) {
+        console.error(error);
+        api.sendMessage("Sorry, an error occurred while processing your request.", event.threadID);
+      }
+
+      api.unsendMessage(downloadingMessage.messageID);
+    } catch (error) {
+      console.error(error);
+      api.sendMessage("Error: " + error, event.threadID);
+    }
   }
 };
