@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 module.exports.config = {
-  name: 'tempmail',
+  name: 'بريد',
   version: '1.0.0',
   role: 0,
   credits: 'HaonJS',
@@ -11,7 +11,7 @@ module.exports.config = {
 
 exports.run = async ({ api, event, args }) => {
   try {
-    if (args[0] === 'inbox') {
+    if (args[0] === 'رسائل') {
       const email = args[1];
       if (!email) return api.sendMessage('Please provide a temporary email.', event.threadID);
 
