@@ -6,6 +6,7 @@ module.exports.config = {
   role: 0,
   credits: 'HaonJS',
   aliases: ['temp','mail'],
+  hasPrefix: true,
   description: '𝗧𝗲𝗺𝗽𝗺𝗮𝗶𝗹 𝖼𝗈𝗆𝗆𝖺𝗇𝖽 𝗆𝖺𝖽𝖾 𝖻𝗒 𝖧𝖺𝗈𝗇𝖩𝖲 𝗂𝗌 𝗎𝗌𝖾 𝗍𝗈 𝗀𝖾𝗇𝖾𝗋𝖺𝗍𝖾 𝖺 𝗍𝖾𝗆𝗉𝗈𝗋𝖺𝗋𝗒 𝗆𝖺𝗂𝗅 𝖺𝗇𝖽 𝗍𝗈 𝖿𝖾𝗍𝖼𝗁 𝗂𝗇𝖻𝗈𝗑 𝗆𝖾𝗌𝗌𝖺𝗀𝖾 𝖿𝗋𝗈𝗆 𝗍𝗁𝖾 𝗀𝖾𝗇𝖾𝗋𝖺𝗍𝖾𝖽 𝗆𝖺𝗂𝗅.'
 };
 
