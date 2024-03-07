@@ -13,6 +13,7 @@ module.exports = {
     cooldowns: 40,
     shortdescription: "send YouTube video",
     longdescription: "",
+    hasPrefix: true,
     category: "video",
     usages: "{pn} video name",
     dependencies: {
