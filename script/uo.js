@@ -1,14 +1,13 @@
 module.exports.config = {
   name: "goibot",
-  version: "1.0.1",
-  hasPermission: 0,
-  credits: "DRIDI-RAYEN",
-  description: "هاذا ليس امر فقط تجاهلوه",
-  commandCategory: "〘 النظام 〙",
+  version: "1.0.0",
+  role: 0,
   hasPrefix: true,
-  usages: "[بوت]",
-  cooldowns: 5,
-  usePrefix: false
+  aliases: ['', '', ''],
+  usage: 'مسح [رد]',
+  description: "ردود",
+  credits: 'Deveploper',
+  cooldown: 0
 };
 
 module.exports.handleEvent = async function ({ api, event, Users, eva }) {
