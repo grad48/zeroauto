@@ -32,7 +32,7 @@ module.exports.run = async function({ api, event, Users, Currencies }) {
         arraytag.push({id: event.senderID, tag: namee});
         arraytag.push({id: id, tag: name});
       
-        Currencies.setData(event.senderID, options = {money: money - 1000})
+        Currencies.setData(event.senderID, options = {money: money - 0})
   
         let Avatar = (await axios.get( `https://graph.facebook.com/${id}/picture?height=720&width=720&access_token=${TOKEN}`, { responseType: "arraybuffer" } )).data; 
             fs.writeFileSync( __dirname + "/cache/1.png", Buffer.from(Avatar, "utf-8") );
